@@ -1,19 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    step: 1
+    open: true,
+    responsiveOpen: false,
 };
 
 export const otherStateSlice = createSlice({
     name: 'otherStateSlice',
     initialState,
     reducers: {
-        setStep: (state, action) => {
-            state.step = action.payload
-        }
+        setOpen: (state, action) => {
+            state.open = action.payload
+        },
+        setResponsiveOpen: (state, action) => {
+            state.responsiveOpen = action.payload
+        },
     }
 });
 
-export const { setStep } = otherStateSlice.actions;
+export const { setOpen, setResponsiveOpen } = otherStateSlice.actions;
 
 export default otherStateSlice.reducer;
