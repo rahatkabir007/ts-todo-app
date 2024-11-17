@@ -13,15 +13,15 @@ const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   return (
     <Provider store={store} >
       <ToastContainer
-      // position="top-right"
-      // autoClose={2000}
-      // hideProgressBar={false}
-      // newestOnTop={false}
-      // closeOnClick
-      // rtl={false}
-      // pauseOnFocusLoss
-      // draggable
-      // pauseOnHover
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
       {children}
     </Provider>

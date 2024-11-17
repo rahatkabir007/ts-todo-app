@@ -1,6 +1,6 @@
 "use client"
 
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "@/components/HomePage/Sidebar/Sidebar";
 import { setOpen, setResponsiveOpen } from "@/redux/features/other/otherStateSlice";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
