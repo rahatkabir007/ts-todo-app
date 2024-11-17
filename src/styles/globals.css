@@ -4,6 +4,9 @@
 
 :root {
 
+  /* Colors */
+  --White-Light: #FFF;
+  --Grey-Darker: #151515;
     /* Font */
   --font-poppins: 'Poppins', sans-serif;
 }
@@ -17,8 +20,8 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
- font-family: var(--font-poppins);
+  color: var(--Grey-Darker);
+  background: var(--White-Light);
+   font-family: var(--font-poppins);
 }
 
