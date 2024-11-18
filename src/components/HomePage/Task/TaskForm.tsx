@@ -6,6 +6,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { ToastMessage } from '@/utils/ToastMessage';
 
 interface TaskFormProps {
     setIsModalOpen: (value: boolean) => void,
@@ -25,8 +26,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ setIsModalOpen, defaultValues }) =>
     const onSubmit = (data: Task) => {
         if (defaultValues) {
             dispatch(editTask({ ...data, id: defaultValues.id }));
+            ToastMessage.notifySuccess("Task Updated Successfully");
         } else {
             dispatch(addTask({ ...data, id: uuidv4(), createdAt: new Date().toISOString() }));
+            ToastMessage.notifySuccess("Task Added Successfully");
         }
         reset();
         setIsModalOpen(false);

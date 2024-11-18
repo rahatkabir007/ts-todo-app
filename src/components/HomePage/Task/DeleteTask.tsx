@@ -1,3 +1,4 @@
+"use client"
 import { Task } from '@/interfaces/task';
 import { deleteTask } from '@/redux/features/task/taskSlice';
 import { ToastMessage } from '@/utils/ToastMessage';
@@ -27,7 +28,7 @@ const DeleteTask: React.FC<DeleteTaskFormProps> = ({ setIsModalOpen, data }) => 
         <div>
             <div className="flex flex-col gap-y-10 items-center justify-center">
                 <div>
-                    <p className='text-xl'> Are You Sure You Want To Delete This Ticket Type?</p>
+                    <p className='text-xl'> Are You Sure You Want To Delete This Task?</p>
                 </div>
                 <div className='flex justify-center gap-8'>
                     <div

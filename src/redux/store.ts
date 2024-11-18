@@ -16,12 +16,12 @@ export const store = configureStore({
         tasks: persistedReducer,
         otherStateSlice: otherStateSlice.reducer,
     },
-    // middleware: (getDefaultMiddleware) =>
-    //     getDefaultMiddleware({
-    //         serializableCheck: {
-    //             ignoredActions: ["persist/PERSIST", "persist/REGISTER"],
-    //         },
-    //     }),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ["persist/PERSIST", "persist/REGISTER"],
+            },
+        }),
 });
 
 export const persistor = persistStore(store);

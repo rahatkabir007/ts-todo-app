@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
                                     onClick={handleAddTask}
                                     className='outline-none border-none px-6 py-3 bg-pscdarkblue text-white rounded'
                                 >
-                                    Add Ticket
+                                    Add Task
                                 </button>
                             </div>
                             <Table isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen} isDeleteModalOpen={isDeleteModalOpen} setIsDeleteModalOpen={setIsDeleteModalOpen} handleEdit={handleEdit} handleDelete={handleDelete} selectedData={selectedTask} />
@@ -67,7 +67,6 @@ const HomePage: React.FC = () => {
                         </Modal>}
                     </div>
                 </div>
-                {/* <RightContent /> */}
             </div>
         </div>
 
