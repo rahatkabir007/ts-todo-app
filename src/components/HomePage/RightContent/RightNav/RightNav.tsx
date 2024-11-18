@@ -17,6 +17,7 @@ const RightNav: React.FC = () => {
                 <FaBars
                     className={`cursor-pointer hidden w-5 h-5 lg:block duration-300 text-black`}
                     onClick={() => {
+                        console.log("fff");
                         dispatch(setOpen(!open));
                         dispatch(setResponsiveOpen(false));
                     }}

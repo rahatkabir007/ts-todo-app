@@ -1,25 +1,34 @@
 import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TaskForm from '../HomePage/Task/TaskForm';
 import DeleteTaskForm from '../HomePage/Task/DeleteTaskForm';
 import Pagination from './Pagination';
+import TaskFormModal from '../HomePageNew/TaskFormModal';
+import Modal from './Modal';
+import { Task } from '@/interfaces/task';
 
 interface TableProps {
-    handleModalOpen: (content: React.ReactNode) => void;
-    handleClose: () => void;
+    isModalOpen: boolean,
+    setIsModalOpen: (value: boolean) => void,
+    handleEdit: (task: Task) => void,
+    handleDelete: (id: string) => void,
+    selectedData: Task
+
 }
 
-const Table: React.FC<TableProps> = ({ handleModalOpen, handleClose }) => {
-    const { tasks } = useSelector((state: RootState) => state.taskStateSlice);
+const Table: React.FC<TableProps> = ({ isModalOpen, setIsModalOpen, handleEdit, handleDelete, selectedData }) => {
+    const tasks = useSelector((state: RootState) => state.tasks.tasks);
+
     const [currentPage, setCurrentPage] = useState(1);
     const [dataPerPage] = useState(5);
     const tableHeaders = [
-        "Ticket No.",
-        "Ticket Type",
-        "Description",
-        "Actions"
+        "Task No.",
+        "Task Name",
+        "Priority",
+        "Status",
+        "Created At"
     ];
 
     const indexOfLastData = currentPage * dataPerPage;
@@ -31,7 +40,7 @@ const Table: React.FC<TableProps> = ({ handleModalOpen, handleClose }) => {
             {
                 tasks?.length === 0 ? (
                     <div className='flex justify-center items-center'>
-                        <span className="text-xl font-medium">No Ticket Type Available</span>
+                        <span className="text-xl font-medium">No Task Available</span>
                     </div>
                 ) : (
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-1 overflow-x-auto">
@@ -59,23 +68,26 @@ const Table: React.FC<TableProps> = ({ handleModalOpen, handleClose }) => {
                                                     <p className="text-gray-900 ">{uniqueIndex > indexOfLastData ? uniqueIndex - (indexOfLastData - dataPerPage) : uniqueIndex}</p>
                                                 </td>
                                                 <td className="px-3 py-5 text-sm">
-                                                    <p className="text-gray-900 ">{data?.taskType}</p>
+                                                    <p className="text-gray-900 ">{data?.name}</p>
                                                 </td>
                                                 <td className="px-3 py-3 text-sm capitalize">
                                                     <p className="text-gray-900 ">
-                                                        {data?.description ? data?.description : "No Description Available"}
+                                                        {data?.priority ? data?.priority : "N/A"}
+                                                    </p>
+                                                </td>
+                                                <td className="px-3 py-3 text-sm capitalize">
+                                                    <p className="text-gray-900 ">
+                                                        {data?.status ? data?.status : "N/A"}
+                                                    </p>
+                                                </td>
+                                                <td className="px-3 py-3 text-sm capitalize">
+                                                    <p className="text-gray-900 ">
+                                                        {data?.createdAt ? data?.createdAt : "N/A"}
                                                     </p>
                                                 </td>
                                                 <td className="px-2 py-3 text-sm">
                                                     <button
-                                                        onClick={() => handleModalOpen(
-                                                            <TaskForm
-                                                                title="Edit Task"
-                                                                submitBtn="Save Changes"
-                                                                handleClose={handleClose}
-                                                                data={data}
-                                                            />
-                                                        )}
+                                                        onClick={() => handleEdit(data)}
                                                     >
                                                         <span className="relative inline-block px-1 py-1 font-semibold text-green-900 leading-tight">
                                                             <span
@@ -87,9 +99,10 @@ const Table: React.FC<TableProps> = ({ handleModalOpen, handleClose }) => {
                                                         </span>
                                                     </button>
                                                     <button
-                                                        onClick={() => handleModalOpen(
-                                                            <DeleteTaskForm handleClose={handleClose} id={data?.id} />
-                                                        )}
+                                                        onClick={() => handleDelete(data?.id)}
+                                                    // onClick={() => handleModalOpen(
+                                                    //     <DeleteTaskForm handleClose={handleClose} id={data?.id} />
+                                                    // )}
                                                     >
                                                         <span className="relative inline-block px-1 py-1 font-semibold text-green-900 leading-tight">
                                                             {data && (
@@ -127,6 +140,9 @@ const Table: React.FC<TableProps> = ({ handleModalOpen, handleClose }) => {
                     </div>
                 )
             }
+            {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+                <TaskFormModal setIsModalOpen={setIsModalOpen} defaultValues={selectedData} />
+            </Modal>}
         </div>
     );
 };

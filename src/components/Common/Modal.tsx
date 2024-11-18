@@ -1,29 +1,28 @@
-import { setIsModalOpen, setModalVisible } from "@/redux/features/other/otherStateSlice";
-import { RootState } from "@/redux/store";
-import React, { useEffect } from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import { AiOutlineCloseSquare } from "react-icons/ai";
-import { useSelector, useDispatch } from 'react-redux';
 
+interface ModalProps {
+    isModalOpen: boolean,
+    setIsModalOpen: (value: boolean) => void,
+    children: React.ReactNode
+}
 
-
-
-const Modal = () => {
-    const dispatch = useDispatch();
-    const { isModalOpen, isModalVisible, modalContent } = useSelector((state: RootState) => state.otherStateSlice);
-
+const Modal: React.FC<ModalProps> = ({ isModalOpen, setIsModalOpen, children }) => {
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         if (isModalOpen) {
             setTimeout(() => {
-                dispatch(setModalVisible(true));
+                setModalVisible(true);
             }, 100);
         }
-    }, [isModalOpen, dispatch]);
+    }, [isModalOpen]);
 
     const closeModal = () => {
         setModalVisible(false);
         setTimeout(() => {
-            dispatch(setIsModalOpen(false));
+            setIsModalOpen(false);
         }, 300);
     };
 
@@ -36,7 +35,7 @@ const Modal = () => {
                         onClick={closeModal}
                     ></div>
                     <div
-                        className={`flex flex-col gap-y-8 bg-white rounded-lg w-full lg:w-1/3 p-6 transform transition-all duration-300 ${isModalVisible ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0"
+                        className={`flex flex-col gap-y-8 bg-white rounded-lg w-full lg:w-1/3 p-6 transform transition-all duration-300 ${modalVisible ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0"
                             }`}
                     >
                         <div className="py-2 flex justify-end mr-5">
@@ -48,7 +47,7 @@ const Modal = () => {
                             </button>
                         </div>
                         <div className="flex flex-col gap-2">
-                            {modalContent}
+                            {children}
                         </div>
                     </div>
                 </div>

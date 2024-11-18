@@ -4,33 +4,38 @@ const initialState = {
     open: true,
     responsiveOpen: false,
     isModalOpen: false,
-    modalContent: "",
     isModalVisible: false,
-
+    modalType: "", // This will hold the type of modal content to display
 };
 
 export const otherStateSlice = createSlice({
-    name: 'otherStateSlice',
+    name: "otherStateSlice",
     initialState,
     reducers: {
         setOpen: (state, action) => {
-            state.open = action.payload
+            state.open = action.payload;
         },
         setResponsiveOpen: (state, action) => {
-            state.responsiveOpen = action.payload
+            state.responsiveOpen = action.payload;
         },
         setIsModalOpen: (state, action) => {
-            state.isModalOpen = action.payload
+            state.isModalOpen = action.payload;
         },
-        setModalContent: (state, action) => {
-            state.modalContent = action.payload
+        setModalType: (state, action) => {
+            state.modalType = action.payload; // Store modal type instead of content
         },
         setModalVisible: (state, action) => {
-            state.isModalVisible = action.payload
-        }
-    }
+            state.isModalVisible = action.payload;
+        },
+    },
 });
 
-export const { setOpen, setResponsiveOpen, setIsModalOpen, setModalContent, setModalVisible } = otherStateSlice.actions;
+export const {
+    setOpen,
+    setResponsiveOpen,
+    setIsModalOpen,
+    setModalType,
+    setModalVisible,
+} = otherStateSlice.actions;
 
 export default otherStateSlice.reducer;

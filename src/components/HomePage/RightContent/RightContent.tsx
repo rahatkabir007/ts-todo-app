@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import RightNav from './RightNav/RightNav';
 import Modal from '@/components/Common/Modal';
-import { setIsModalOpen, setModalContent } from '@/redux/features/other/otherStateSlice';
+import { setIsModalOpen } from '@/redux/features/other/otherStateSlice';
 import AddTaskButton from '../Task/AddTaskButton';
 import Table from '@/components/Common/Table';
 
@@ -11,14 +11,12 @@ const RightContent: React.FC = () => {
     const dispatch = useDispatch();
 
 
-    const handleModalOpen = (content: React.ReactNode) => {
+    const handleModalOpen = () => {
         dispatch(setIsModalOpen(true));
-        dispatch(setModalContent(content));
     };
 
     const handleModalClose = () => {
         dispatch(setIsModalOpen(false));
-        dispatch(setModalContent(""));
     };
 
     return (
