@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Task } from "@/interfaces/task";
 import { addTask, editTask } from "@/redux/features/task/taskSlice";
@@ -15,7 +15,7 @@ interface TaskFormProps {
 
 const TaskForm: React.FC<TaskFormProps> = ({ setIsModalOpen, defaultValues }) => {
     const dispatch = useDispatch();
-    const { register, handleSubmit, reset } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: defaultValues || {
             name: "",
             priority: "Medium",
@@ -39,21 +39,42 @@ const TaskForm: React.FC<TaskFormProps> = ({ setIsModalOpen, defaultValues }) =>
         <div className="flex flex-col gap-4">
             <h2 className="text-lg font-bold mb-4">{defaultValues ? "Edit Task" : "Add Task"}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    {...register("name", { required: true })}
-                    placeholder="Task Name"
-                    className="border p-2 mb-4 w-full border-pscblack rounded-lg"
-                />
-                <select {...register("priority")} className="border p-2 mb-4 w-full border-pscblack rounded-lg">
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                </select>
-                {defaultValues && (
-                    <select {...register("status")} className="border p-2 mb-4 w-full border-pscblack rounded-lg">
-                        <option value="Pending">Pending</option>
-                        <option value="Completed">Completed</option>
+                <div className="flex flex-col gap-2">
+                    <label className="font-semibold text-base">
+                        Task Name <sup className="text-red-700">*  {errors.name && <span className="text-red-700 text-sm">is required</span>}</sup>
+                    </label>
+                    <input
+                        {...register("name", { required: true })}
+                        placeholder="Task Name"
+                        className="border p-2 mb-4 w-full border-pscblack rounded-lg"
+                    />
+
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label className="font-semibold text-base">
+                        Priority <sup className="text-red-700">*  {errors.priority && <span className="text-red-700 text-sm">is required</span>}</sup>
+                    </label>
+                    <select {...register("priority", { required: true })} className="border p-2 mb-4 w-full border-pscblack rounded-lg">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
                     </select>
+
+                </div>
+                {defaultValues && (
+                    <div className="flex flex-col gap-2">
+                        <label className="font-semibold text-base">
+                            Status <sup className="text-red-700">*  {errors.status && <span className="text-red-700 text-sm">is required</span>}</sup>
+                        </label>
+                        <select
+                            {...register("status", { required: true })}
+                            className="border p-2 mb-4 w-full border-pscblack rounded-lg"
+                            disabled={defaultValues.status === "Completed"}
+                        >
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
                 )}
                 <div className="flex justify-end">
                     <button type="submit" className="bg-pscdarkblue text-white px-4 py-2 rounded">
