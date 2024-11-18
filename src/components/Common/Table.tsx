@@ -1,4 +1,3 @@
-import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useSelector } from 'react-redux';
@@ -8,6 +7,7 @@ import { Task } from '@/interfaces/task';
 import TaskForm from '../HomePage/Task/TaskForm';
 import DeleteTask from '../HomePage/Task/DeleteTask';
 import dayjs from 'dayjs';
+import { RootState } from '@/redux/store';
 
 interface TableProps {
     isEditModalOpen: boolean,
@@ -17,7 +17,6 @@ interface TableProps {
     handleEdit: (task: Task) => void,
     handleDelete: (task: Task) => void,
     selectedData: Task | null
-
 }
 
 const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDeleteModalOpen, setIsDeleteModalOpen, handleEdit, handleDelete, selectedData }) => {
@@ -25,6 +24,9 @@ const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDe
 
     const [currentPage, setCurrentPage] = useState(1);
     const [dataPerPage] = useState(5);
+    const [priorityFilter, setPriorityFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+
     const tableHeaders = [
         "Task No.",
         "Task Name",
@@ -36,12 +38,47 @@ const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDe
 
     const indexOfLastData = currentPage * dataPerPage;
     const indexOfFirstData = indexOfLastData - dataPerPage;
-    const currentTableTypes = tasks.slice(indexOfFirstData, indexOfLastData);
+
+    const filteredTasks = tasks.filter(task => {
+        return (priorityFilter ? task.priority === priorityFilter : true) &&
+            (statusFilter ? task.status === statusFilter : true);
+    });
+
+    const currentTableTypes = filteredTasks.slice(indexOfFirstData, indexOfLastData);
 
     return (
         <div className="py-5 rounded w-full">
+            <div className="flex justify-end mb-4">
+                <div className="w-1/4 flex gap-4">
+                    <div className='flex flex-col gap-2'>
+                        <label className="font-semibold text-base">Filter by Priority</label>
+                        <select
+                            value={priorityFilter}
+                            onChange={(e) => setPriorityFilter(e.target.value)}
+                            className="border p-2 mb-4 w-full border-pscblack rounded-lg"
+                        >
+                            <option value="">All</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div className='flex flex-col gap-2'>
+                        <label className="font-semibold text-base">Filter by Status</label>
+                        <select
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            className="border p-2 mb-4 w-full border-pscblack rounded-lg"
+                        >
+                            <option value="">All</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             {
-                tasks?.length === 0 ? (
+                currentTableTypes?.length === 0 ? (
                     <div className='flex justify-center items-center'>
                         <span className="text-xl font-medium">No Task Available</span>
                     </div>
