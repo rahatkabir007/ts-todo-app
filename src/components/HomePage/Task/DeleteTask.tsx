@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux';
 
 interface DeleteTaskFormProps {
     setIsModalOpen: (value: boolean) => void,
-    data?: Task;
+    data?: Task | null;
 }
 
-const DeleteTaskForm: React.FC<DeleteTaskFormProps> = ({ setIsModalOpen, data }) => {
+const DeleteTask: React.FC<DeleteTaskFormProps> = ({ setIsModalOpen, data }) => {
 
     const dispatch = useDispatch()
 
@@ -48,4 +48,4 @@ const DeleteTaskForm: React.FC<DeleteTaskFormProps> = ({ setIsModalOpen, data })
     );
 };
 
-export default DeleteTaskForm;
+export default DeleteTask;

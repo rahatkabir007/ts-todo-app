@@ -1,13 +1,12 @@
 import { RootState } from '@/redux/store';
 import React, { useState } from 'react';
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
-import TaskForm from '../HomePage/Task/TaskForm';
-import DeleteTaskForm from '../HomePage/Task/DeleteTaskForm';
+import { useSelector } from 'react-redux';
 import Pagination from './Pagination';
-import TaskFormModal from '../HomePageNew/TaskFormModal';
 import Modal from './Modal';
 import { Task } from '@/interfaces/task';
+import TaskForm from '../HomePage/Task/TaskForm';
+import DeleteTask from '../HomePage/Task/DeleteTask';
 
 interface TableProps {
     isEditModalOpen: boolean,
@@ -15,8 +14,8 @@ interface TableProps {
     isDeleteModalOpen: boolean,
     setIsDeleteModalOpen: (value: boolean) => void,
     handleEdit: (task: Task) => void,
-    handleDelete: (id: string) => void,
-    selectedData: Task
+    handleDelete: (task: Task) => void,
+    selectedData: Task | null
 
 }
 
@@ -140,11 +139,11 @@ const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDe
                 )
             }
             {isEditModalOpen && <Modal isModalOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen}>
-                <TaskFormModal setIsModalOpen={setIsEditModalOpen} defaultValues={selectedData} />
+                <TaskForm setIsModalOpen={setIsEditModalOpen} defaultValues={selectedData} />
             </Modal>}
             {
                 isDeleteModalOpen && <Modal isModalOpen={isDeleteModalOpen} setIsModalOpen={setIsDeleteModalOpen}>
-                    <DeleteTaskForm setIsModalOpen={setIsDeleteModalOpen} data={selectedData} />
+                    <DeleteTask setIsModalOpen={setIsDeleteModalOpen} data={selectedData} />
                 </Modal>
             }
         </div>
