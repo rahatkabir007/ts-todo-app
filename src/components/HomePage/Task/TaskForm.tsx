@@ -42,21 +42,21 @@ const TaskForm: React.FC<TaskFormProps> = ({ setIsModalOpen, defaultValues }) =>
                 <input
                     {...register("name", { required: true })}
                     placeholder="Task Name"
-                    className="border p-2 mb-4 w-full"
+                    className="border p-2 mb-4 w-full border-pscblack rounded-lg"
                 />
-                <select {...register("priority")} className="border p-2 mb-4 w-full">
+                <select {...register("priority")} className="border p-2 mb-4 w-full border-pscblack rounded-lg">
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
                     <option value="Low">Low</option>
                 </select>
                 {defaultValues && (
-                    <select {...register("status")} className="border p-2 mb-4 w-full">
+                    <select {...register("status")} className="border p-2 mb-4 w-full border-pscblack rounded-lg">
                         <option value="Pending">Pending</option>
                         <option value="Completed">Completed</option>
                     </select>
                 )}
                 <div className="flex justify-end">
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                    <button type="submit" className="bg-pscdarkblue text-white px-4 py-2 rounded">
                         {defaultValues ? "Update" : "Add"}
                     </button>
                 </div>

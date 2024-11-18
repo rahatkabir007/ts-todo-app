@@ -34,7 +34,7 @@ const HomePage: React.FC = () => {
         setIsDeleteModalOpen(true);
     }
     return (
-        <div className="flex h-screen overflow-y-hidden">
+        <div className="flex h-screen overflow-hidden">
             <Sidebar />
             {responsiveOpen && (
                 <div
@@ -45,10 +45,10 @@ const HomePage: React.FC = () => {
                     className="fixed z-10 opacity-40 bg-black top-0 left-0 right-0 bottom-0"
                 ></div>
             )}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-hidden">
                 <div className='flex flex-col'>
                     <RightNav />
-                    <div className="container mx-auto p-6 my-[25px] flex flex-col gap-2">
+                    <div className="p-6 my-[25px] flex flex-col gap-2">
                         <h1 className="text-2xl font-bold mb-4 flex">Tasks</h1>
                         <div className='flex flex-col gap-2'>
                             <div className="flex justify-end">
