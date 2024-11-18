@@ -1,12 +1,25 @@
-// import React, { useStqate } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import RightNav from './RightNav/RightNav';
-// import { RootState } from '@/redux/store';
 import Modal from '@/components/Common/Modal';
-// import { setIsModalOpen, setModalContent } from '@/redux/features/other/otherStateSlice';
+import { setIsModalOpen, setModalContent } from '@/redux/features/other/otherStateSlice';
+import AddTaskButton from '../Task/AddTaskButton';
+import Table from '@/components/Common/Table';
 
 
 const RightContent: React.FC = () => {
+    const dispatch = useDispatch();
+
+
+    const handleModalOpen = (content: React.ReactNode) => {
+        dispatch(setIsModalOpen(true));
+        dispatch(setModalContent(content));
+    };
+
+    const handleModalClose = () => {
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+    };
 
     return (
         <>
@@ -14,8 +27,8 @@ const RightContent: React.FC = () => {
             <div className='flex flex-col'>
                 <RightNav />
                 <div className='my-[25px] mx-[45px]'>
-                    {/* <AddTicketButton handleModalOpen={handleModalOpen} handleClose={handleModalClose} /> */}
-                    {/* <RightTable handleModalOpen={handleModalOpen} handleClose={handleModalClose} /> */}
+                    <AddTaskButton />
+                    <Table handleModalOpen={handleModalOpen} handleClose={handleModalClose} />
                 </div>
             </div>
         </>

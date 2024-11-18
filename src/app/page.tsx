@@ -1,5 +1,6 @@
 "use client"
 
+import RightContent from "@/components/HomePage/RightContent/RightContent";
 import Sidebar from "@/components/HomePage/Sidebar/Sidebar";
 import { setOpen, setResponsiveOpen } from "@/redux/features/other/otherStateSlice";
 import { RootState } from "@/redux/store";
@@ -24,7 +25,7 @@ export default function Home() {
       )}
 
       <div className="flex-1 overflow-y-auto">
-        {/* <RightContent open={open} setOpen={setOpen} responsiveOpen={responsiveOpen} setResponsiveOpen={setResponsiveOpen} /> */}
+        <RightContent />
       </div>
     </div>
   );
