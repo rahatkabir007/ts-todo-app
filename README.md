@@ -73,3 +73,20 @@ The project follows Next.js 14's file-based routing and layout structure. Where 
 
    ```bash
    git clone https://github.com/rahatkabir007/ts-todo-app.git
+
+
+### 2. **Install dependencies:**
+
+   ```bash
+   cd ts-todo-app
+   npm install
+   ```
+
+### 3. **Run the development server:**
+
+   ```bash
+    npm run dev
+    ```
+
+    The app will be available at http://localhost:3000.
+
