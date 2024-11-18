@@ -10,15 +10,17 @@ import Modal from './Modal';
 import { Task } from '@/interfaces/task';
 
 interface TableProps {
-    isModalOpen: boolean,
-    setIsModalOpen: (value: boolean) => void,
+    isEditModalOpen: boolean,
+    setIsEditModalOpen: (value: boolean) => void,
+    isDeleteModalOpen: boolean,
+    setIsDeleteModalOpen: (value: boolean) => void,
     handleEdit: (task: Task) => void,
     handleDelete: (id: string) => void,
     selectedData: Task
 
 }
 
-const Table: React.FC<TableProps> = ({ isModalOpen, setIsModalOpen, handleEdit, handleDelete, selectedData }) => {
+const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDeleteModalOpen, setIsDeleteModalOpen, handleEdit, handleDelete, selectedData }) => {
     const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +30,8 @@ const Table: React.FC<TableProps> = ({ isModalOpen, setIsModalOpen, handleEdit, 
         "Task Name",
         "Priority",
         "Status",
-        "Created At"
+        "Created At",
+        "Actions"
     ];
 
     const indexOfLastData = currentPage * dataPerPage;
@@ -99,11 +102,7 @@ const Table: React.FC<TableProps> = ({ isModalOpen, setIsModalOpen, handleEdit, 
                                                         </span>
                                                     </button>
                                                     <button
-                                                        onClick={() => handleDelete(data?.id)}
-                                                    // onClick={() => handleModalOpen(
-                                                    //     <DeleteTaskForm handleClose={handleClose} id={data?.id} />
-                                                    // )}
-                                                    >
+                                                        onClick={() => handleDelete(data)}>
                                                         <span className="relative inline-block px-1 py-1 font-semibold text-green-900 leading-tight">
                                                             {data && (
                                                                 <span
@@ -140,9 +139,14 @@ const Table: React.FC<TableProps> = ({ isModalOpen, setIsModalOpen, handleEdit, 
                     </div>
                 )
             }
-            {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-                <TaskFormModal setIsModalOpen={setIsModalOpen} defaultValues={selectedData} />
+            {isEditModalOpen && <Modal isModalOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen}>
+                <TaskFormModal setIsModalOpen={setIsEditModalOpen} defaultValues={selectedData} />
             </Modal>}
+            {
+                isDeleteModalOpen && <Modal isModalOpen={isDeleteModalOpen} setIsModalOpen={setIsDeleteModalOpen}>
+                    <DeleteTaskForm setIsModalOpen={setIsDeleteModalOpen} data={selectedData} />
+                </Modal>
+            }
         </div>
     );
 };

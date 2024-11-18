@@ -19,6 +19,7 @@ const HomePage: React.FC = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
 
     const handleAddTask = () => {
@@ -30,8 +31,9 @@ const HomePage: React.FC = () => {
         setIsEditModalOpen(true);
     };
 
-    const handleDelete = (id: string) => {
-        dispatch(deleteTask(id))
+    const handleDelete = (task: Task) => {
+        setSelectedTask(task);
+        setIsDeleteModalOpen(true);
     }
     return (
         <div className="flex h-screen overflow-y-hidden">
@@ -48,16 +50,21 @@ const HomePage: React.FC = () => {
             <div className="flex-1 overflow-y-auto">
                 <div className='flex flex-col'>
                     <RightNav />
-                    <div className="container mx-auto p-6">
-                        <h1 className="text-2xl font-bold mb-4">Tasks</h1>
-                        <button
-                            onClick={handleAddTask}
-                            className="bg-green-500 text-white px-4 py-2 rounded mb-4"
-                        >
-                            Add Task
-                        </button>
+                    <div className="container mx-auto p-6 my-[25px] flex flex-col gap-2">
+                        <h1 className="text-2xl font-bold mb-4 flex">Tasks</h1>
+                        <div className='flex flex-col gap-2'>
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={handleAddTask}
+                                    className='outline-none border-none px-6 py-3 bg-pscdarkblue text-white rounded'
+                                >
+                                    Add Ticket
+                                </button>
+                            </div>
+                            <Table isEditModalOpen={isEditModalOpen} setIsEditModalOpen={setIsEditModalOpen} isDeleteModalOpen={isDeleteModalOpen} setIsDeleteModalOpen={setIsDeleteModalOpen} handleEdit={handleEdit} handleDelete={handleDelete} selectedData={selectedTask} />
+                        </div>
 
-                        <Table isModalOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen} handleEdit={handleEdit} handleDelete={handleDelete} selectedData={selectedTask} />
+
 
                         {/* {isModalOpen && <TaskFormModal onClose={handleCloseModal} />} */}
                         {isModalOpen && <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>

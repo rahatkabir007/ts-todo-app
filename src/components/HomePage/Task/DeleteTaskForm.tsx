@@ -1,21 +1,23 @@
-import { deleteTask } from '@/redux/features/task/taskStateSlice';
+import { Task } from '@/interfaces/task';
+import { deleteTask } from '@/redux/features/task/taskSlice';
 import { ToastMessage } from '@/utils/ToastMessage';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
 interface DeleteTaskFormProps {
-    handleClose: () => void;
-    id?: number;
+    setIsModalOpen: (value: boolean) => void,
+    data?: Task;
 }
 
-const DeleteTaskForm: React.FC<DeleteTaskFormProps> = ({ handleClose, id }) => {
-    const dispatch = useDispatch();
+const DeleteTaskForm: React.FC<DeleteTaskFormProps> = ({ setIsModalOpen, data }) => {
+
+    const dispatch = useDispatch()
 
     const handleDelete = () => {
-        if (id !== undefined) {
-            dispatch(deleteTask(id));
-            handleClose();
-            ToastMessage.notifySuccess("Ticket Type Deleted Successfully");
+        if (data !== undefined) {
+            dispatch(deleteTask(data?.id));
+            setIsModalOpen(false)
+            ToastMessage.notifySuccess("Task Deleted Successfully");
         } else {
             ToastMessage.notifyError("Invalid Task ID");
         }
@@ -29,7 +31,9 @@ const DeleteTaskForm: React.FC<DeleteTaskFormProps> = ({ handleClose, id }) => {
                 </div>
                 <div className='flex justify-center gap-8'>
                     <div
-                        onClick={handleClose}
+                        onClick={() => {
+                            setIsModalOpen(false)
+                        }}
                         className='px-3 py-2 bg-[#1A1A40] text-white rounded cursor-pointer'>
                         Cancel
                     </div>
