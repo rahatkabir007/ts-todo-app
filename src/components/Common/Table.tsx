@@ -7,6 +7,7 @@ import Modal from './Modal';
 import { Task } from '@/interfaces/task';
 import TaskForm from '../HomePage/Task/TaskForm';
 import DeleteTask from '../HomePage/Task/DeleteTask';
+import dayjs from 'dayjs';
 
 interface TableProps {
     isEditModalOpen: boolean,
@@ -84,7 +85,7 @@ const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDe
                                                 </td>
                                                 <td className="px-3 py-3 text-sm capitalize">
                                                     <p className="text-gray-900 ">
-                                                        {data?.createdAt ? data?.createdAt : "N/A"}
+                                                        {data?.createdAt ? dayjs(data?.createdAt).format("DD-MM-YYYY") : "N/A"}
                                                     </p>
                                                 </td>
                                                 <td className="px-2 py-3 text-sm">
