@@ -45,9 +45,9 @@ const Table: React.FC<TableProps> = ({ isEditModalOpen, setIsEditModalOpen, isDe
                         <span className="text-xl font-medium">No Task Available</span>
                     </div>
                 ) : (
-                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-1 overflow-x-auto">
+                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-1 ">
                         <div className="inline-block min-w-full shadow overflow-hidden">
-                            <table className="min-w-full leading-normal">
+                            <table className="min-w-full leading-normal overflow-x-auto">
                                 <thead>
                                     <tr>
                                         {tableHeaders.map((header, idx) => (
